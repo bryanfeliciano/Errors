@@ -1,5 +1,12 @@
 module Lib where
 
+
+maxN :: Int
+maxN = 10
+
+primes :: [Int]
+primes = [2,3,5,7]
+
 myTake :: Int -> [a] -> [a]
 myTake 0 _ = []
 myTake n xs = head xs : myTake (n - 1) (tail xs)
@@ -36,3 +43,14 @@ data PrimeError = TooLarge | InvalidValue
 instance Show PrimeError where
      show TooLarge = "value exceeds max bound"
      show InvalidValue = "value is not a candidate for prime checking"
+
+isPrime :: Int -> Either PrimeError Bool
+isPrime n
+    | n < 2 = Left InvalidValue
+    | n > maxN = Left TooLarge
+    |otherwise = Right (n `elem` primes)
+
+displayResult :: Either PrimeError Bool -> String
+displayResult (Right True) = "It's prime"
+displayResult (Right False) = "It's composite"
+displayResult (Left primeError) = show primeError 
