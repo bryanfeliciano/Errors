@@ -1,6 +1,5 @@
 module Lib where
 
-
 maxN :: Int
 maxN = 10
 
