@@ -24,3 +24,15 @@ myTakeSafer n (Just xs) = (:) <$> maybeHead xs
                               <*> myTakeSafer (n - 1) (Just (tail xs))
 
 -- Intro To either type --
+
+eitherHead :: [a] -> Either String a
+eitherHead [] = Left "Error, empty list has no head"
+eitherHead (x:_) = Right x 
+
+-- you can create your own error types which is very powerful --
+
+data PrimeError = TooLarge | InvalidValue
+
+instance Show PrimeError where
+     show TooLarge = "value exceeds max bound"
+     show InvalidValue = "value is not a candidate for prime checking"
